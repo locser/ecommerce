@@ -22,14 +22,14 @@ var productSchema = new mongoose.Schema(
       trim: true,
     },
 
-    // category: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'Category',
-    // },
     category: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'ProdCategory',
     },
+    // category: {
+    //   type: String,
+    //   required: true,
+    // },
     quantity: {
       type: Number,
       // required: true,

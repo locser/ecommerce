@@ -1,10 +1,16 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+
+const { notFound, errorHandler } = require('./middleware/errorHandle');
 const dbConnect = require('./config/dbConnect');
 const userRoute = require('./routes/userRoutes');
 const productRoute = require('./routes/productRoutes');
-const bodyParser = require('body-parser');
-const { notFound, errorHandler } = require('./middleware/errorHandle');
+const blogRoute = require('./routes/blogRoutes');
+// const categoryRoute = require('./routes/categoryRoutes');
+const prodCategoryRoute = require('./routes/prodCategoryRoutes');
+const blogCategoryRoute = require('./routes/blogCategoryRoutes');
+const brandRoute = require('./routes/brandRoutes');
 
 const app = express();
 
@@ -22,6 +28,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //route routes
 app.use('/api/user', userRoute);
 app.use('/api/product', productRoute);
+app.use('/api/blog', blogRoute);
+// app.use('/api/category', categoryRoute);
+app.use('/api/blogCategory', blogCategoryRoute);
+app.use('/api/prodCategory', prodCategoryRoute);
+app.use('/api/brand', brandRoute);
 
 // app.use(notFound);
 // app.use(errorHandler);

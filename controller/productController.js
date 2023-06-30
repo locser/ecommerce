@@ -4,7 +4,7 @@ const AppError = require('../utils/appError');
 const factory = require('./handleFactory');
 
 exports.getAllProduct = factory.getAll(Product);
-exports.getProductById = factory.getOne(Product, { path: 'reviews' });
+exports.getProductById = factory.getOne(Product);
 exports.createProduct = factory.createOne(Product);
 exports.updateProductById = factory.updateOneById(Product);
 exports.deleteProduct = factory.deleteOne(Product);

@@ -56,11 +56,23 @@ var productSchema = new mongoose.Schema(
     ratings: [
       {
         star: Number,
+        comment: String,
         postedby: {
           type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
         },
       },
     ],
+    ratingsAverage: {
+      type: Number,
+      default: 0,
+    },
+
+    totalRatings: {
+      type: String,
+      default: 0,
+    },
+
     price: {
       type: Number,
       required: [true, 'A tour must have a price'],
@@ -78,6 +90,14 @@ var productSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+productSchema.pre('save', function (next) {
+  if (this.isModified('ratings')) {
+    const sum = this.ratings.reduce((acc, rating) => acc + rating.star, 0);
+    this.ratingsAverage = sum / this.ratings.length;
+  }
+  next();
+});
 
 //Export the model
 module.exports = mongoose.model('Product', productSchema);

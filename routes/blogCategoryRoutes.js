@@ -5,23 +5,24 @@ const blogCategoryController = require('../controller/blogCategoryController');
 const router = express.Router();
 router
   .route('/')
-  .get(blogCategoryController.getAllBlog)
+  .get(blogCategoryController.getAllBlogCategory)
   .post(
     authController.protect,
     authController.restrictTo('admin'),
-    blogCategoryController.createBlog
+    blogCategoryController.createBlogCategory
   );
 
 router
   .route('/:id')
-  .get(blogCategoryController.getBlogById)
+  .get(blogCategoryController.getBlogCategoryById)
   .patch(
     authController.protect,
     authController.restrictTo('admin'),
-    blogCategoryController.updateBlogById
+    blogCategoryController.updateBlogCategoryById
   )
   .delete(
     authController.protect,
     authController.restrictTo('admin'),
-    blogCategoryController.deleteBlog
+    blogCategoryController.deleteBlogCategory
   );
+module.exports = router;

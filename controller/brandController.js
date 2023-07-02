@@ -1,10 +1,10 @@
-const brand = require('../models/prodCategoryModel');
+const Brand = require('../models/prodCategoryModel');
 const factory = require('./handleFactory');
 
 const asyncHandler = require('express-async-handler');
 
-exports.createBrand = factory.createOne(brand);
-exports.getAllBrand = factory.getAll(brand);
-exports.getProdBrandById = factory.getOne(brand);
-exports.updateProdBrandById = factory.updateOneById(brand);
-exports.deleteBrand = factory.deleteOne(brand);
+exports.createBrand = factory.createOne(Brand);
+exports.getAllBrand = factory.getAll(Brand);
+exports.getBrandById = factory.getOne(Brand);
+exports.updateBrandById = factory.updateOneById(Brand);
+exports.deleteBrand = factory.deleteOne(Brand);

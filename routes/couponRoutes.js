@@ -1,28 +1,28 @@
 const express = require('express');
 const authController = require('../controller/authController');
-const prodCategoryController = require('../controller/prodCategoryController');
+const couponController = require('../controller/couponController');
 
 const router = express.Router();
 router
   .route('/')
-  .get(prodCategoryController.getAllProdCategory)
+  .get(couponController.getAllCoupon)
   .post(
     authController.protect,
     authController.restrictTo('admin'),
-    prodCategoryController.createProdCategory
+    couponController.createCoupon
   );
 
 router
   .route('/:id')
-  .get(prodCategoryController.getProdCategoryById)
+  .get(couponController.getCouponById)
   .patch(
     authController.protect,
     authController.restrictTo('admin'),
-    prodCategoryController.updateProdCategoryById
+    couponController.updateCouponById
   )
   .delete(
     authController.protect,
     authController.restrictTo('admin'),
-    prodCategoryController.deleteProdCategory
+    couponController.deleteCoupon
   );
 module.exports = router;

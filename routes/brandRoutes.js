@@ -5,23 +5,24 @@ const brandController = require('../controller/brandController');
 const router = express.Router();
 router
   .route('/')
-  .get(blogController.getAllBlog)
+  .get(brandController.getAllBrand)
   .post(
     authController.protect,
     authController.restrictTo('admin'),
-    brandController.createBlog
+    brandController.createBrand
   );
 
 router
   .route('/:id')
-  .get(brandController.getBlogById)
+  .get(brandController.getBrandById)
   .patch(
     authController.protect,
     authController.restrictTo('admin'),
-    brandController.updateBlogById
+    brandController.updateBrandById
   )
   .delete(
     authController.protect,
     authController.restrictTo('admin'),
-    brandController.deleteBlog
+    brandController.deleteBrand
   );
+module.exports = router;

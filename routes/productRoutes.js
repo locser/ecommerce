@@ -27,4 +27,11 @@ router
     productController.deleteProduct
   );
 
+router.put(
+  '/wishlist',
+  authController.protect,
+  productController.addToWishList
+);
+router.put('/rating', authController.protect, productController.rating);
+
 module.exports = router;

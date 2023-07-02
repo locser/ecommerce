@@ -26,3 +26,5 @@ router
     authController.restrictTo('admin'),
     blogController.deleteBlog
   );
+
+module.exports = router;

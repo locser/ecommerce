@@ -46,11 +46,7 @@ var blogSchema = new mongoose.Schema(
         ref: 'User',
       },
     ],
-    image: {
-      type: String,
-      default:
-        'https://img.freepik.com/free-vector/blogging-fun-content-creation-online-streaming-video-blog-young-girl-making-selfie-social-network-sharing-feedback-self-promotion-strategy_335657-2386.jpg?w=740&t=st=1688114059~exp=1688114659~hmac=841711e3ca5ae29f1d862c31eac4922989782f78331a92fbfbe94ea0b8ddeae0',
-    },
+    image: [],
 
     author: {
       type: String,

@@ -4,6 +4,10 @@ const AppError = require('../utils/appError');
 const factory = require('./handleFactory');
 const User = require('../models/userModel');
 
+const fs = require('fs');
+const validateMongoDbId = require('../utils/validateMongodbId');
+const cloudinaryUploadImg = require('../utils/cloudinary');
+
 exports.getAllProduct = factory.getAll(Product);
 exports.getProductById = factory.getOne(Product);
 exports.createProduct = factory.createOne(Product);
@@ -131,4 +135,36 @@ exports.rating = asyncHandler(async (req, res) => {
   new AppError('Rating failed');
 });
 
+exports.uploadImages = asyncHandler(async (req, res) => {
+  const { productId } = req.params;
+  validateMongoDbId(id);
+
+  try {
+    const uploader = (path) => cloudinaryUploadImg(path, 'images');
+    const urls = [];
+    const files = req.files;
+
+    for (const file of files) {
+      const { path } = file;
+      const newpath = await uploader(path);
+      urls.push(newpath);
+      fs.unlinkSync(path);
+    }
+
+    const findProduct = await Product.findByIdAndUpdate(
+      productId,
+      {
+        images: urls.map((file) => {
+          return file;
+        }),
+      },
+      { new: true }
+    );
+
+    res.json(findProduct);
+  } catch (err) {
+    console.error(err);
+    throw new Error(err);
+  }
+});
 // exports.getAllRating =

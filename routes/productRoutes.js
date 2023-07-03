@@ -1,6 +1,7 @@
 const express = require('express');
 const productController = require('../controller/productController');
 const authController = require('../controller/authController');
+const uploadPhoto = require('../middleware/uploadImage');
 
 const router = express.Router();
 
@@ -33,5 +34,14 @@ router.put(
   productController.addToWishList
 );
 router.put('/rating', authController.protect, productController.rating);
+
+router.put(
+  '/upload/:productId',
+  authController.protect,
+  authController.restrictTo('admin'),
+  uploadPhoto.uploadImage.array('images', 10),
+  uploadPhoto.productImageResize,
+  productController.uploadImages
+);
 
 module.exports = router;

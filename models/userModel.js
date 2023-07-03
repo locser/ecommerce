@@ -53,8 +53,7 @@ var userSchema = new mongoose.Schema(
     },
     address: [
       {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Address',
+        type: String,
       },
     ],
     wishlist: [

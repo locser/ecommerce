@@ -2,6 +2,7 @@ const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 const factory = require('./handleFactory');
 const AppError = require('../utils/appError');
+const validateMongoDbId = require('../utils/validateMongoDbId');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -70,3 +71,25 @@ exports.createUser = (req, res) => {
     message: 'This route is not yet defined! Please use /signup instead.',
   });
 };
+
+exports.saveAddress = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+
+  validateMongoDbId(_id);
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      _id,
+      {
+        address: req?.body?.address,
+      },
+      {
+        new: true,
+      }
+    );
+    res.json(updatedUser);
+  } catch (err) {
+    console.error(err);
+    throw new AppError('Update address failed');
+  }
+});

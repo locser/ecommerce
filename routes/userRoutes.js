@@ -20,6 +20,7 @@ router.patch(
 );
 
 router.get('/me', userController.getMe, userController.getUser);
+router.get('/save-address', userController.saveAddress);
 router.patch('/updateMe', userController.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 

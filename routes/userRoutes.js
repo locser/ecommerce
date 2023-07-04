@@ -37,4 +37,16 @@ router
   .patch(userController.updateUser)
   .delete(authController.restrictTo('admin'), userController.deleteUser);
 
+//cart
+router.route('/cart').post(userController.userCart);
+router.route('/cart/applyCoupon').post(userController.applyCoupon);
+router.route('/cart').get(userController.getUserCart);
+router.route('/empty-cart').delete(userController.emptyCart);
+router.route('/cart/createOrder').post(userController.createOrder);
+router.route('/get-orders').get(userController.getOrders);
+//TODO: admin -user
+router
+  .route('/update-order/:id')
+  .put(authController.restrictTo('admin'), userController.updateOrderStatus);
+
 module.exports = router;

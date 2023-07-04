@@ -5,8 +5,10 @@ const factory = require('./handleFactory');
 const User = require('../models/userModel');
 
 const fs = require('fs');
+const validateMongobId = require('../utils/validateMongodbId');
+
+const cloudinary = require('../utils/cloudinary');
 const validateMongoDbId = require('../utils/validateMongodbId');
-const cloudinaryUploadImg = require('../utils/cloudinary');
 
 exports.getAllProduct = factory.getAll(Product);
 exports.getProductById = factory.getOne(Product);
@@ -140,7 +142,7 @@ exports.uploadImages = asyncHandler(async (req, res) => {
   validateMongoDbId(id);
 
   try {
-    const uploader = (path) => cloudinaryUploadImg(path, 'images');
+    const uploader = (path) => cloudinary.cloudinaryUploadImg(path, 'images');
     const urls = [];
     const files = req.files;
 
@@ -151,17 +153,33 @@ exports.uploadImages = asyncHandler(async (req, res) => {
       fs.unlinkSync(path);
     }
 
-    const findProduct = await Product.findByIdAndUpdate(
-      productId,
-      {
-        images: urls.map((file) => {
-          return file;
-        }),
-      },
-      { new: true }
-    );
+    const images = await urls.map((file) => {
+      return file;
+    });
+    res.json(images);
 
-    res.json(findProduct);
+    // const findProduct = await Product.findByIdAndUpdate(
+    //   productId,
+    //   {
+    //     images: urls.map((file) => {
+    //       return file;
+    //     }),
+    //   },
+    //   { new: true }
+    // );
+
+    // res.json(findProduct);
+  } catch (err) {
+    console.error(err);
+    throw new Error(err);
+  }
+});
+
+exports.deleteImage = asyncHandler(async (req, res) => {
+  try {
+    // path is public_id, u have to get public_id from uploadImage result
+    const deleted = cloudinary.cloudinaryDeleteImg(path, 'images');
+    res.json({ message: 'Deleted image' });
   } catch (err) {
     console.error(err);
     throw new Error(err);

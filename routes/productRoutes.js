@@ -36,12 +36,18 @@ router.put(
 router.put('/rating', authController.protect, productController.rating);
 
 router.put(
-  '/upload/:productId',
+  '/upload-image/:productId',
   authController.protect,
   authController.restrictTo('admin'),
   uploadPhoto.uploadImage.array('images', 10),
   uploadPhoto.productImageResize,
   productController.uploadImages
+);
+router.delete(
+  '/delete-image/:productId',
+  authController.protect,
+  authController.restrictTo('admin'),
+  productController.deleteImage
 );
 
 module.exports = router;

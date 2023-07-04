@@ -35,10 +35,12 @@ var productSchema = new mongoose.Schema(
       // required: true,
     },
     images: [],
-    color: {
-      type: String,
-      enum: ['Black', 'White', 'Red', 'Other'],
-    },
+    color: [],
+    tags: [],
+    // color: {
+    //   type: String,
+    //   enum: ['Black', 'White', 'Red', 'Other'],
+    // },
     //   ratingsAverage: {
     //     type: Number,
     //     default: 0,

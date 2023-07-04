@@ -6,7 +6,7 @@ const Order = require('../models/orderModel');
 const asyncHandler = require('express-async-handler');
 const factory = require('./handleFactory');
 const AppError = require('../utils/appError');
-const validateMongoDbId = require('../utils/validateMongoDbId');
+const validateMongoDbId = require('../utils/validateMongodbId');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};

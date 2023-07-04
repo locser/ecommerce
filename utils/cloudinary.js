@@ -10,10 +10,23 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+//
 const cloudinaryUploadImg = async (fileToUploads) => {
   try {
+    // TODO: public_id and asset_id
     const result = await cloudinary.uploader.upload(fileToUploads); // Tải ảnh lên Cloudinary
-    return result.url; // Gửi kết quả về cho client
+    return result.url; //, result.public_id; // Gửi kết quả về cho client
+  } catch (error) {
+    console.error(error);
+    throw new Error('Upload image failed: ' + error);
+  }
+};
+
+const cloudinaryDeleteImg = async (fileToDelete) => {
+  try {
+    // TODO: public_id and asset_id
+    const result = await cloudinary.uploader.destroy(fileToUploads); // Tải ảnh lên Cloudinary
+    return result.url, result.public_id; // Gửi kết quả về cho client
   } catch (error) {
     console.error(error);
     throw new Error('Upload image failed: ' + error);
@@ -54,5 +67,5 @@ const cloudinaryUploadImg = async (fileToUploads) => {
 // };
 
 // module.exports = uploadImageToCloudinary;
-module.exports = cloudinaryUploadImg;
+module.exports = { cloudinaryUploadImg, cloudinaryDeleteImg };
 //
